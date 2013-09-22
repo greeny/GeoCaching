@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace GeoCaching\Routing;
 
 use Nette,
 	Nette\Application\Routers\RouteList,
@@ -20,7 +20,16 @@ class RouterFactory
 	public function createRouter()
 	{
 		$router = new RouteList();
-		$router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');
+		$router[] = new Route('server/<server>/<presenter>/<action>[/<id>]', array(
+			'module' => 'Server',
+			'presenter' => 'Dashboard',
+			'action' => 'default',
+		));
+		$router[] = new Route('<presenter>/<action>[/<id>]', array(
+			'module' => 'Public',
+			'presenter' => 'Dashboard',
+			'action' => 'default',
+		));
 		return $router;
 	}
 

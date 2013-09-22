@@ -28,7 +28,8 @@ class DatabaseExtension extends CompilerExtension
 		$config = $this->getConfig($this->defaults);
 
 		$builder->addDefinition($this->prefix('modelManager'))
-			->setClass('Fabik\Database\ModelManager');
+			->setClass('Fabik\Database\ModelManager')
+			->setArguments(array('rowFactory' => '@database.rowFactory'));
 
 		$builder->addDefinition($this->prefix('rowFactory'))
 			->setClass('Fabik\Database\RowFactory', array($config['rowFactory']['classes'], $config['rowFactory']['defaultClass']));

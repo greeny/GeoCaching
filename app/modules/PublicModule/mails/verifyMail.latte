@@ -1,0 +1,11 @@
+{#content}
+Ahoj {$data->name},<br>
+<br>
+tvoje registrace na webu GameTeam.cz GeoCaching byla úspěšná! Pro dokončení registrace prosím potvrď, že jsi nám poskytl
+správnou emailovou adresu, kliknutím na tento odkaz: <br>
+<p><a href="{plink //:Public:User:verify id => $data->name, verify => $data->verification_code}">{plink //:Public:User:verify id => $data->name, verify => $data->verification_code}</a></p><br>
+nebo použij tento kód: <b>{$data->verification_code}</b><br>
+<br>
+Přejeme ti hodně štěstí při hledání pokladů!<br>
+<br>
+GameTeam.cz GeoCaching tým

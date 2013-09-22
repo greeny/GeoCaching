@@ -1,0 +1,25 @@
+{#content}
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			<th>Jméno</th>
+			<th>IP</th>
+			<th>DynMap IP</th>
+		</tr>
+	</thead>
+	<tbody>
+		{if count($servers) == 0}
+			<tr>
+				<td colspan="3"><div class="text-center"><i>Žádné servery nenalezeny</i></div></td>
+			</tr>
+		{else}
+			{foreach $servers as $server}
+				<tr>
+					<td><a n:href=":Servers:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
+					<td>{$server->ip ? $server->ip : '-'}</td>
+					<td>{$server->dynmap ? $server->dynmap : '-'}</td>
+				</tr>
+			{/foreach}
+		{/if}
+	</tbody>
+</table>

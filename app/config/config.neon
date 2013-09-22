@@ -14,13 +14,37 @@ nette:
 	application:
 		errorPresenter: Error
 		mapping:
-			*: App\*Module\*Presenter
+			*: GeoCaching\*Module\*Presenter
 
 	session:
 		expiration: 14 days
 
+database:
+	rowFactory:
+		classes:
+			## rows ##
+			# - GeoCaching\Model\
+		defaultClass: GeoCaching\Model\ActiveRow
 
 services:
-	- Model\UserManager
-	- App\RouterFactory
-	router: @App\RouterFactory::createRouter
+	## tables ##
+	- GeoCaching\Model\Servers
+	- GeoCaching\Model\ServersComments
+	- GeoCaching\Model\Users
+
+	## facades ##
+	- GeoCaching\Model\ServerFacade
+	- GeoCaching\Model\UserFacade
+
+	- GeoCaching\Security\Authenticator
+	- GeoCaching\Controls\MailSender
+	- GeoCaching\Routing\RouterFactory
+
+	## serverModule ##
+	serverRowFactory: GeoCaching\Database\ServerRowFactory({
+		## rows ##
+	}, 'GeoCaching\Model\ActiveRow')
+	- GeoCaching\Database\TableFactory(@serverRowFactory)
+
+
+	router: @GeoCaching\Routing\RouterFactory::createRouter
