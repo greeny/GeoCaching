@@ -8,6 +8,7 @@
 	<title>{#title}GameTeam.cz GeoCaching{/#}</title>
 
 	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+	<link rel="stylesheet" href="{$basePath}/css/jquery-ui.css">
 	<link rel="stylesheet" href="{$basePath}/css/common.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	{#head}{/#}
@@ -21,7 +22,13 @@
 			</div>
 
 			<ul class="nav navbar-nav navbar-left">
-				<li{ifCurrent Servers:*} class="active"{/ifCurrent}><a n:href="Servers:list">Seznam serverů</a></li>
+				<li class="dropdown{ifCurrent :Public:Servers:*} active{/ifCurrent}">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-hdd"></span> Servery<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li{ifCurrent :Public:Servers:list} class="active"{/ifCurrent}><a n:href=":Public:Servers:list"><span class="glyphicon glyphicon-list"></span> Seznam serverů</a></li>
+						<li{ifCurrent :Public:Servers:register} class="active"{/ifCurrent}><a n:href=":Public:Servers:register"><span class="glyphicon glyphicon-plus"></span> Registrovat nový server</a></li>
+					</ul>
+				</li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -66,6 +73,7 @@
 
 	{#scripts}
 	<script src="{$basePath}/js/jquery.js"></script>
+	<script src="{$basePath}/js/jquery-ui.js"></script>
 	<script src="{$basePath}/js/netteForms.js"></script>
 	<script src="{$basePath}/js/bootstrap.js"></script>
 	<script src="{$basePath}/js/common.js"></script>

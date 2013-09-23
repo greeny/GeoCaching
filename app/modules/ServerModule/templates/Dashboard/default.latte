@@ -3,11 +3,14 @@
 	<h1>Server: {$server->name}</h1>
 </div>
 <div class="row">
-	<div class="col-lg-5">
-		{$server->description}
+	<div class="col-lg-4">
+		{$server->description}<hr>
+		Počet kešek: {$caches}
 	</div>
 
-	<div class="col-lg-7">
-		<iframe n:if="$server->dynmap" src="{$server->dynmap}" width="100%" height="400">DynMap</iframe>
+	<div class="col-lg-8">
+		<div class="resizable">
+			<iframe class="resizable-iframe" n:if="$server->dynmap" src="{$server->dynmap}" width="100%" height="400">DynMap</iframe>
+		</div>
 	</div>
 </div>

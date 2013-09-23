@@ -67,7 +67,7 @@ class TableFactory extends Object {
 		if(isset($this->tables[$name])) {
 			return $this->tables[$name];
 		} else {
-			$name = '\GeoCaching\Model\\' . ucfirst($name);
+			$name = 'GeoCaching\ServerModule\Model\\' . ucfirst($name);
 			return new $name($this->modelManager);
 		}
 	}
