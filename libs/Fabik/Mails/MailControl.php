@@ -14,13 +14,6 @@ abstract class MailControl extends Control
 	/** @var Mail */
 	protected $mail;
 
-
-
-	/**
-	 * Creates mail message.
-	 * @param  Mail
-	 * @return void
-	 */
 	protected abstract function initializeMail(Mail $mail);
 
 

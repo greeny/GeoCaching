@@ -13,11 +13,11 @@ class PasswordCrypter extends Object {
 
 	public static function encrypt($password)
 	{
-		return base64_encode(openssl_encrypt($password, self::$METHOD, hash('sha256', self::$KEY), hash('sha256', self::$IV)));
+		return base64_encode(openssl_encrypt($password, self::$METHOD, hash('sha512', self::$KEY), false, hash('crc32b', self::$IV).hash('crc32b', self::$IV)));
 	}
 
 	public static function decrypt($password)
 	{
-		return openssl_decrypt(base64_decode($password), self::$METHOD, hash('sha256', self::$KEY), hash('sha256', self::$IV));
+		return openssl_decrypt(base64_decode($password), self::$METHOD, hash('sha512', self::$KEY), false, hash('crc32b', self::$IV).hash('crc32b', self::$IV));
 	}
 }

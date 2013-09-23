@@ -2,6 +2,7 @@
 
 namespace GeoCaching\Database;
 
+use Fabik\Database\ActiveRow;
 use Fabik\Database\IRowFactory;
 use Fabik\Database\ModelManager;
 use GeoCaching\Model\Server;
@@ -42,7 +43,7 @@ class TableFactory extends Object {
 		$this->cacheStorage = $cacheStorage;
 	}
 
-	public function setServer(Server $server)
+	public function setServer(ActiveRow $server)
 	{
 		$connection = new Connection('mysql:host=localhost;dbname=' . $server->database_name, $server->username, PasswordCrypter::decrypt($server->password));
 		$this->modelManager = new ModelManager($connection, $this->rowFactory, $this->reflection, $this->cacheStorage);

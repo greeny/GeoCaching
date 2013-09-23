@@ -15,9 +15,9 @@
 		{else}
 			{foreach $servers as $server}
 				<tr>
-					<td><a n:href=":Servers:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
+					<td><a n:href=":Server:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
 					<td>{$server->ip ? $server->ip : '-'}</td>
-					<td>{$server->dynmap ? $server->dynmap : '-'}</td>
+					<td>{if $server->dynmap}<a href="{$server->dynmap}">{$server->dynmap}</a>{else}-{/if}</td>
 				</tr>
 			{/foreach}
 		{/if}

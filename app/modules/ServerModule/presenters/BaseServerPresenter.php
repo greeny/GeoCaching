@@ -10,6 +10,9 @@ use GeoCaching\Model\Servers;
 
 class BaseServerPresenter extends BasePresenter {
 
+	/** @persistent string */
+	protected $server;
+
 	/** @var \GeoCaching\Database\TableFactory */
 	protected $tableFactory;
 

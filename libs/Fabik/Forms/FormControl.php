@@ -30,13 +30,6 @@ abstract class FormControl extends Control
 		$this->cancelUrl = $cancelUrl;
 	}
 
-
-
-	/**
-	 * Creates form components.
-	 * @param  App\Forms\Form
-	 * @return void
-	 */
 	protected abstract function initializeForm(Form $form);
 
 
