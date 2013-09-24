@@ -1,0 +1,38 @@
+{#content}
+<div class="page-header">
+	<h1>Keška {$cache->name}</h1>
+</div>
+
+<div class="row">
+	<div class="col-lg-3">
+		<table class="table table-responsive">
+			<tbody>
+				<tr>
+					<th>Obtížnost</th>
+					<td>
+						<span data-tooltip title="Obtížnost: {$cache->difficulty}">
+							{for $i = 1; $i <= 5; $i++}
+								<span class="glyphicon glyphicon-star{if $i > $cache->difficulty}-empty{/if}"></span>
+							{/for}
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th>Hodnocení</th>
+					<td>
+						<span data-tooltip title="Hodnocení: {$cache->score ?: "zatím nehodnoceno"}">
+							{for $i = 1; $i <= 5; $i++}
+								<span class="glyphicon glyphicon-heart{if $i > $cache->score}-empty{/if}"></span>
+							{/for}
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-lg-9">
+
+	</div>
+</div>
+

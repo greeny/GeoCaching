@@ -13,9 +13,9 @@ use Nette\Database\IReflection;
 use Nette\Object;
 
 /**
+ * @property \GeoCaching\ServerModule\Model\Caches caches
  * @author Tomáš Blatný
  */
-
 class TableFactory extends Object {
 
 	/** @var \Fabik\Database\IRowFactory  */
@@ -70,5 +70,13 @@ class TableFactory extends Object {
 			$name = 'GeoCaching\ServerModule\Model\\' . ucfirst($name);
 			return new $name($this->modelManager);
 		}
+	}
+
+	/**
+	 * @return \GeoCaching\ServerModule\Model\Caches
+	 */
+	public function getCaches()
+	{
+		return $this->getTable('caches');
 	}
 }

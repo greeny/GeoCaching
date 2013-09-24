@@ -1,0 +1,35 @@
+{#content}
+<div class="page-header">
+	<h1>Seznam kešek<small> - najděte je všechny</small></h1>
+</div>
+
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			<th>Jméno</th>
+			<th>Počet nalezení</th>
+			<th>Obtížnost</th>
+			<th>Hodnocení</th>
+		</tr>
+	</thead>
+	<tbody>
+		{if count($caches)}
+			{foreach $caches as $cache}
+				<tr>
+					<td><a n:href="Caches:detail id => $cache->id">{$cache->name}</a></td>
+					<td>{$cache->getFoundCount()}</td>
+					<td><span data-tooltip title="Obtížnost: {$cache->difficulty}">{for $i = 1; $i <= 5; $i++}
+						<span class="glyphicon glyphicon-star{if $i > $cache->difficulty}-empty{/if}"></span>
+					{/for}</span></td>
+					<td>{var $score = $cache->getScore()}<span data-tooltip title="Hodnocení: {$score ?: "zatím nehodnoceno"}">{for $i = 1; $i <= 5; $i++}
+						<span class="glyphicon glyphicon-heart{if $i > $score}-empty{/if}"></span>
+					{/for}</span></td>
+				</tr>
+			{/foreach}
+		{else}
+			<tr>
+				<td colspan="4"><div class="text-center"><i>Žádné kešky nenalezeny</i></div></td>
+			</tr>
+		{/if}
+	</tbody>
+</table>

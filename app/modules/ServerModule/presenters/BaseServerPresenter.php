@@ -11,7 +11,7 @@ use GeoCaching\Model\Servers;
 class BaseServerPresenter extends BasePresenter {
 
 	/** @persistent string */
-	protected $server;
+	public $server;
 
 	/** @var \GeoCaching\Database\TableFactory */
 	protected $tableFactory;
@@ -34,5 +34,11 @@ class BaseServerPresenter extends BasePresenter {
 		}
 
 		$this->tableFactory->setServer($server);
+	}
+
+	public function beforeRender()
+	{
+		parent::beforeRender();
+		$this->template->server = $this->tableFactory->getServer();
 	}
 }

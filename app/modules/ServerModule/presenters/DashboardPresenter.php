@@ -8,7 +8,6 @@ class DashboardPresenter extends BaseServerPresenter {
 
 	public function renderDefault()
 	{
-		$this->template->server = $this->tableFactory->getServer();
-		$this->template->caches = $this->tableFactory->getTable('caches')->findAll()->count();
+		$this->template->caches = $this->tableFactory->caches->findAll()->count();
 	}
 }

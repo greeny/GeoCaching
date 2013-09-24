@@ -9,8 +9,8 @@
 	</div>
 
 	<div class="col-lg-8">
-		<div class="resizable">
-			<iframe class="resizable-iframe" n:if="$server->dynmap" src="{$server->dynmap}" width="100%" height="400">DynMap</iframe>
+		<div class="resizable" n:if="$server->dynmap" >
+			<iframe class="resizable-iframe" src="{$server->dynmap}" width="100%" height="400">DynMap</iframe>
 		</div>
 	</div>
 </div>

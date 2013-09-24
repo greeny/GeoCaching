@@ -8,6 +8,7 @@
 	<title>{#title}GameTeam.cz GeoCaching{/#}</title>
 
 	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
+	<link rel="stylesheet" href="{$basePath}/css/font-awesome.css">
 	<link rel="stylesheet" href="{$basePath}/css/jquery-ui.css">
 	<link rel="stylesheet" href="{$basePath}/css/common.css">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
@@ -29,6 +30,15 @@
 						<li{ifCurrent :Public:Servers:register} class="active"{/ifCurrent}><a n:href=":Public:Servers:register"><span class="glyphicon glyphicon-plus"></span> Registrovat nový server</a></li>
 					</ul>
 				</li>
+				{ifset $server}
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span> {$server->name}<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li{ifCurrent :Server:Dashboard:default} class="active"{/ifCurrent}><a n:href=":Server:Dashboard:default"><span class="glyphicon glyphicon-th-large"></span> Základní informace</a></li>
+							<li{ifCurrent :Server:Caches:list} class="active"{/ifCurrent}><a n:href=":Server:Caches:list"><span class="glyphicon glyphicon-list"></span> Seznam kešek</a></li>
+						</ul>
+					</li>
+				{/ifset}
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">

@@ -42,7 +42,7 @@ services:
 
 	## serverModule ##
 	serverRowFactory: GeoCaching\Database\ServerRowFactory({
-		## rows ##
+		caches: 'GeoCaching\ServerModule\Model\Cache'
 	}, 'GeoCaching\Model\ActiveRow')
 	- GeoCaching\Database\TableFactory(@serverRowFactory)
 

@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $(".alert").alert();
+    $("[data-tooltip]").tooltip();
 
     $resizable = $(".resizable");
     $resizable.resizable({
