@@ -23,7 +23,8 @@ database:
 	rowFactory:
 		classes:
 			## rows ##
-			# - GeoCaching\Model\
+			users: GeoCaching\Model\User
+			servers: GeoCaching\Model\Server
 		defaultClass: GeoCaching\Model\ActiveRow
 
 services:

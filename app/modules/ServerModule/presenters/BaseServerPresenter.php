@@ -7,6 +7,7 @@ namespace GeoCaching\ServerModule;
 use GeoCaching\BasePresenter;
 use GeoCaching\Database\TableFactory;
 use GeoCaching\Model\Servers;
+use GeoCaching\Model\Users;
 
 class BaseServerPresenter extends BasePresenter {
 
@@ -19,10 +20,17 @@ class BaseServerPresenter extends BasePresenter {
 	/** @var \GeoCaching\Model\Servers */
 	protected $servers;
 
-	public function injectBaseServer(TableFactory $tableFactory, Servers $servers)
+	/** @var \GeoCaching\Model\Users */
+	protected $users;
+
+	/** @var \GeoCaching\ServerModule\Model\User */
+	protected $serverUser;
+
+	public function injectBaseServer(TableFactory $tableFactory, Servers $servers, Users $users)
 	{
 		$this->tableFactory = $tableFactory;
 		$this->servers = $servers;
+		$this->users = $users;
 	}
 
 	public function startup()
@@ -34,11 +42,14 @@ class BaseServerPresenter extends BasePresenter {
 		}
 
 		$this->tableFactory->setServer($server);
+
+		$this->serverUser = $this->tableFactory->users->find($this->users->find($this->user->id)->getServerUserId($server->id));
 	}
 
 	public function beforeRender()
 	{
 		parent::beforeRender();
 		$this->template->server = $this->tableFactory->getServer();
+		$this->template->serverUser = $this->serverUser;
 	}
 }

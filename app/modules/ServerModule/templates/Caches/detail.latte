@@ -55,16 +55,23 @@
 
 		<hr>
 
+		<h2>Logy</h2>
+
 		<div class="panel panel-default">
 			<ul class="list-group">
 				{foreach $cache->logs as $log}
 					<li class="list-group-item">
 						<span class="list-group-item-heading">
 							<i class="icon-ok"></i> <a n:href=":Server:Users:detail id=>$log->user->nick">{$log->user->nick}</a>
-							{$log->user->role|role} našel {$cache->name}
+							{$log->user->role|role} <b>našel {$cache->name}</b>
 						</span>
+						<span class="pull-right">{$log->log_time|time}</span>
 						<hr>
-						{$log->text ?: $log->user->nick.' nezanechal žádný vzkaz.'}
+						{if $log->text}
+							<span class="glyphicon glyphicon-comment"></span> {$log->text}
+						{else}
+							<i>{$log->user->nick.' nezanechal žádný vzkaz.'}</i>
+						{/if}
 					</li>
 				{/foreach}
 			</ul>
@@ -73,7 +80,7 @@
 	</div>
 
 	<div class="col-lg-5">
-		<h3>Poslední hodnocení</h3>
+		<h2>Poslední hodnocení</h2>
 		<table class="table table-responsive">
 			<thead>
 				<tr>
