@@ -2,7 +2,7 @@
 <div class="page-header">
 	<h1>Seznam serverů</h1>
 </div>
-<table class="table table-responsive">
+<table class="table table-responsive table-condensed">
 	<thead>
 		<tr>
 			<th>Jméno</th>
@@ -20,7 +20,7 @@
 				<tr>
 					<td><a n:href=":Server:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
 					<td>{$server->ip ? $server->ip : '-'}</td>
-					<td>{if $server->dynmap}<a href="{$server->dynmap}">{$server->dynmap}</a>{else}-{/if}</td>
+					<td>{if $server->dynmap}<a href="{$server->dynmap}" target="_blank">{$server->dynmap}</a>{else}-{/if}</td>
 				</tr>
 			{/foreach}
 		{/if}

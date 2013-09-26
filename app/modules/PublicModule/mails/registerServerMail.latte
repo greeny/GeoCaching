@@ -6,7 +6,7 @@ Zde máš veškeré informace, které potřebuješ pro nastavení pluginu:<br>
 <br>
 Databáze: <b>{$data->database_name}</b><br>
 Uživatel: <b>{$data->username}</b><br>
-Heslo: <b>{$data->password}</b><br>
+Heslo: <b>{\GeoCaching\Security\PasswordCrypter::decrypt($data->password)}</b><br>
 <br>
 Přejeme ti hodně štěstí při hledání pokladů!<br>
 <br>

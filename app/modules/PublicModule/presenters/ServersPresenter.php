@@ -58,6 +58,6 @@ class ServersPresenter extends BasePublicPresenter {
 		$this->mailSender->send($mail, $this->user->getIdentity()->email);
 
 		$this->flashSuccess('Server úspěšně zaregistrován, zkontroluj si emailovou schránku.');
-		$this->redirect(':Server:Dashboard:default, server=>'.$v->shortcut);
+		$this->redirect(':Server:Dashboard:default', array('server' => $v->shortcut));
 	}
 }

@@ -20,7 +20,7 @@ class MailSender extends Object {
 	{
 		$mail = $baseMail->getMail();
 		$mail->setFrom('geocaching@gameteam.cz', 'GameTeam.cz GeoCaching');
-		$mail->setSubject("[GameTeam.cz GeoCaching]" + $baseMail->getSubject());
+		$mail->setSubject("[GameTeam.cz GeoCaching] " . $baseMail->getSubject());
 		if($to !== null) {
 			$mail->addTo($to);
 		}
