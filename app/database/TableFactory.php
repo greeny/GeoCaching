@@ -14,6 +14,7 @@ use Nette\Object;
 
 /**
  * @property \GeoCaching\ServerModule\Model\Caches caches
+ * @property \GeoCaching\ServerModule\Model\CacheScores cacheScores
  * @author Tomáš Blatný
  */
 class TableFactory extends Object {
@@ -78,5 +79,13 @@ class TableFactory extends Object {
 	public function getCaches()
 	{
 		return $this->getTable('caches');
+	}
+
+	/**
+	 * @return \GeoCaching\ServerModule\Model\CacheScores
+	 */
+	public function getCacheScores()
+	{
+		return $this->getTable('cacheScores');
 	}
 }

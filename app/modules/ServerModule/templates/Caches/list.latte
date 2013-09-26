@@ -10,25 +10,24 @@
 			<th>Počet nalezení</th>
 			<th>Obtížnost</th>
 			<th>Hodnocení</th>
+			<th>Vlastník</th>
 		</tr>
 	</thead>
 	<tbody>
 		{if count($caches)}
 			{foreach $caches as $cache}
 				<tr>
-					<td><a n:href="Caches:detail id => $cache->id">{$cache->name}</a></td>
+					<td><i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->id">{$cache->name}</a></td>
 					<td>{$cache->getFoundCount()}</td>
-					<td><span data-tooltip title="Obtížnost: {$cache->difficulty}">{for $i = 1; $i <= 5; $i++}
-						<span class="glyphicon glyphicon-star{if $i > $cache->difficulty}-empty{/if}"></span>
-					{/for}</span></td>
-					<td>{var $score = $cache->getScore()}<span data-tooltip title="Hodnocení: {$score ?: "zatím nehodnoceno"}">{for $i = 1; $i <= 5; $i++}
-						<span class="glyphicon glyphicon-heart{if $i > $score}-empty{/if}"></span>
-					{/for}</span></td>
+					<td>{$cache->difficulty|difficulty}</td>
+					<td>{$cache->score|score}</td>
+					<td><a n:href=":Server:Users:detail id=>$cache->user->nick">{$cache->user->nick}</a>
+						{$cache->user->role|role}</td>
 				</tr>
 			{/foreach}
 		{else}
 			<tr>
-				<td colspan="4"><div class="text-center"><i>Žádné kešky nenalezeny</i></div></td>
+				<td colspan="5"><div class="text-center"><i>Žádné kešky nenalezeny</i></div></td>
 			</tr>
 		{/if}
 	</tbody>

@@ -1,38 +1,105 @@
 {#content}
-<div class="page-header">
-	<h1>Keška {$cache->name}</h1>
+<div class="row">
+	<div class="page-header">
+		<h1><i class="icon-archive"></i> {$cache->name}</h1>
+	</div>
 </div>
 
 <div class="row">
-	<div class="col-lg-3">
-		<table class="table table-responsive">
-			<tbody>
-				<tr>
-					<th>Obtížnost</th>
-					<td>
-						<span data-tooltip title="Obtížnost: {$cache->difficulty}">
-							{for $i = 1; $i <= 5; $i++}
-								<span class="glyphicon glyphicon-star{if $i > $cache->difficulty}-empty{/if}"></span>
-							{/for}
+	<div class="col-lg-7">
+		<div class="row">
+			<div class="col-lg-5">
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<td>Obtížnost</td>
+							<td>
+								{$cache->difficulty|difficulty}
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Hodnocení</td>
+							<td>
+								{$cache->getScore()|score}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-offset-2 col-lg-5">
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<td>Svět</td>
+							<td>{$cache->world}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Vlastník</td>
+							<td>
+								<a n:href=":Server:Users:detail id=>$cache->user->nick">{$cache->user->nick}</a>
+								{$cache->user->role|role}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<hr>
+
+		{$cache->description}
+
+		<hr>
+
+		<div class="panel panel-default">
+			<ul class="list-group">
+				{foreach $cache->logs as $log}
+					<li class="list-group-item">
+						<span class="list-group-item-heading">
+							<i class="icon-ok"></i> <a n:href=":Server:Users:detail id=>$log->user->nick">{$log->user->nick}</a>
+							{$log->user->role|role} našel {$cache->name}
 						</span>
-					</td>
-				</tr>
-				<tr>
-					<th>Hodnocení</th>
-					<td>
-						<span data-tooltip title="Hodnocení: {$cache->score ?: "zatím nehodnoceno"}">
-							{for $i = 1; $i <= 5; $i++}
-								<span class="glyphicon glyphicon-heart{if $i > $cache->score}-empty{/if}"></span>
-							{/for}
-						</span>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+						<hr>
+						{$log->text ?: $log->user->nick.' nezanechal žádný vzkaz.'}
+					</li>
+				{/foreach}
+			</ul>
+		</div>
+
 	</div>
 
-	<div class="col-lg-9">
-		{$cache->description}
+	<div class="col-lg-5">
+		<h3>Poslední hodnocení</h3>
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>Uživatel</th>
+					<th>Čas</th>
+					<th>Hodnocení</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach $cache->votes->limit(5) as $vote}
+					<tr>
+						<td>
+							{var $u = $vote->user}
+							<a n:href=":Server:Users:detail id=>$u->nick">{$u->nick}</a>
+							{$u->role|role}
+						</td>
+						<td>
+							{$vote->time|time}
+						</td>
+						<td>
+							{$vote->score|score}
+						</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
 	</div>
 </div>
 

@@ -44,7 +44,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				{if $user->isLoggedIn()}
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Přihlášen jako {$user->identity->name} <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {$user->identity->name} <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li{ifCurrent :Public:User:settings} class="active"{/ifCurrent}><a n:href=":Public:User:settings"><span class="glyphicon glyphicon-wrench"></span> Nastavení účtu</a></li>
 							<li><a n:href="logout!"><span class="glyphicon glyphicon-log-out"></span> Odhlásit se</a></li>

@@ -4,7 +4,7 @@ namespace GeoCaching;
 
 use GeoCaching\Controls\MailSender;
 use Nette\Application\UI\Presenter;
-use Nette\Mail\IMailer;
+use GeoCaching\Templating\Helpers;
 
 /**
  * Base presenter for all application presenters.
@@ -13,6 +13,12 @@ abstract class BasePresenter extends Presenter
 {
 	/** @var MailSender */
 	protected $mailSender;
+
+	public function beforeRender()
+	{
+		parent::beforeRender();
+		Helpers::prepareTemplate($this->template);
+	}
 
 	public function handleLogout()
 	{

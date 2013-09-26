@@ -5,3 +5,19 @@ body {
 .resizable {
     border: 2px solid gray;
 }
+
+.label-role-moderator {
+    background-color: #be0000;
+}
+
+.label-role-admin {
+    background-color: #0000be;
+}
+
+.label-role-superadmin {
+    background-color: #00be00;
+}
+
+.label-role-owner {
+    background-color: #000000;
+}

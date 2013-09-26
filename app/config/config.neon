@@ -43,6 +43,8 @@ services:
 	## serverModule ##
 	serverRowFactory: GeoCaching\Database\ServerRowFactory({
 		caches: 'GeoCaching\ServerModule\Model\Cache'
+		users: 'GeoCaching\ServerModule\Model\User'
+		cacheScores: 'GeoCaching\ServerModule\Model\CacheScore'
 	}, 'GeoCaching\Model\ActiveRow')
 	- GeoCaching\Database\TableFactory(@serverRowFactory)
 

@@ -12,7 +12,7 @@ class CachesPresenter extends BaseServerPresenter {
 
 	public function renderDetail($id)
 	{
-		if(!$this->template->cache = $this->tableFactory->caches->find($id)) {
+		if(!$this->template->cache = $cache = $this->tableFactory->caches->find($id)) {
 			$this->flashError("Keška nenalezena.");
 			$this->redirect("Caches:list");
 		}
