@@ -7,6 +7,7 @@ namespace GeoCaching\Templating;
 use Nette\Object;
 use Nette\Templating\Template;
 use Nette\Utils\Html;
+use GeoCaching\ServerModule\Model\Cache;
 
 class Helpers extends Object {
 
@@ -14,7 +15,20 @@ class Helpers extends Object {
 	{
 		$template->registerHelper('role', function($text) {
 			return (in_array($text, array('guest', 'member'))) ? '' :
-			Html::el('span', array('class' => 'label label-role-'.$text))->setText(ucfirst($text));
+				Html::el('span', array('class' => 'label label-role-'.$text))->setText(ucfirst($text));
+		});
+
+		$template->registerHelper('status', function($text) {
+			$text = (int) $text;
+			if($text == Cache::ACTIVE) {
+				return Html::el('span', array('class' => 'label label-status-active'))->setText("Aktivní");
+			} else if($text == Cache::APPROVAL) {
+				return Html::el('span', array('class' => 'label label-status-approval'))->setText("Čeká na schválení");
+			} else if($text == Cache::DISABLED) {
+				return Html::el('span', array('class' => 'label label-status-disabled'))->setText("Neaktivní");
+			} else {
+				return Html::el('span');
+			}
 		});
 
 		$template->registerHelper('score', function($text) {

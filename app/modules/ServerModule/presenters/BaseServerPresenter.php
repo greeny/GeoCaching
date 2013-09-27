@@ -50,6 +50,16 @@ class BaseServerPresenter extends BasePresenter {
 		}
 	}
 
+	/*
+	 * 211 = 11010011
+	 * 101011 = 43
+	 * 4a = 74
+	 * 512 = 200
+	 *
+	 *
+	 *
+	 */
+
 	public function beforeRender()
 	{
 		parent::beforeRender();

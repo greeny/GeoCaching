@@ -7,6 +7,10 @@ namespace GeoCaching\ServerModule\Model;
 use GeoCaching\Model\ActiveRow;
 
 class Cache extends ActiveRow {
+	const ACTIVE = 1;
+	const APPROVAL = 2;
+	const DISABLED = 3;
+
 	public function getUser()
 	{
 		return $this->ref('users', 'owner');
