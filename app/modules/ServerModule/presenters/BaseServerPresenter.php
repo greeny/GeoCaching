@@ -43,7 +43,11 @@ class BaseServerPresenter extends BasePresenter {
 
 		$this->tableFactory->setServer($server);
 
-		$this->serverUser = $this->tableFactory->users->find($this->users->find($this->user->id)->getServerUserId($server->id));
+		if($this->user->isLoggedIn()) {
+			$this->serverUser = $this->tableFactory->users->find($this->users->find($this->user->id)->getServerUserId($server->id));
+		} else {
+			$this->serverUser = NULL;
+		}
 	}
 
 	public function beforeRender()
