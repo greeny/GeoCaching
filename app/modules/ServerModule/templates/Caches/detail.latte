@@ -51,7 +51,7 @@
 
 		<hr>
 
-		{$cache->description}
+		{$cache->description ?:\Nette\Utils\Html::el("i")->setText('Keška zatím nemá popis.')}
 
 		<hr>
 
@@ -59,27 +59,48 @@
 
 		<div class="panel panel-default">
 			<ul class="list-group">
-				{foreach $cache->logs as $log}
-					<li class="list-group-item">
+				{if count($logs = $cache->logs)}
+					{foreach $cache->logs as $log}
+						<li class="list-group-item">
 						<span class="list-group-item-heading">
 							<i class="icon-ok"></i> <a n:href=":Server:Users:detail id=>$log->user->nick">{$log->user->nick}</a>
 							{$log->user->role|role} <b>našel {$cache->name}</b>
 						</span>
-						<span class="pull-right">{$log->log_time|time}</span>
-						<hr>
-						{if $log->text}
-							<span class="glyphicon glyphicon-comment"></span> {$log->text}
-						{else}
-							<i>{$log->user->nick.' nezanechal žádný vzkaz.'}</i>
-						{/if}
-					</li>
-				{/foreach}
+							<span class="pull-right"><span class="glyphicon glyphicon-time"></span> {$log->log_time|time}</span>
+							<hr>
+							{if $log->text}
+								<span class="glyphicon glyphicon-comment"></span> {$log->text}
+							{else}
+								<i>{$log->user->nick.' nezanechal žádný vzkaz.'}</i>
+							{/if}
+							{if $serverUser && $serverUser->id == $log->user_id}
+								<button class="btn btn-default pull-right" data-toggle="collapse" data-target="#logEdit" data-tooltip title="Upravit log">
+									<span class="pull-right glyphicon glyphicon-pencil"></span>
+								</button>
+								<div id="logEdit" class="collapse form-add-margin">
+									{control editLogForm 'text' => $log->text, 'id' => $log->id}
+								</div>
+							{/if}
+						</li>
+					{/foreach}
+				{else}
+					<div class="text-center" colspan=""><i>Nenalezeny žádné logy</i></div>
+				{/if}
 			</ul>
 		</div>
 
 	</div>
 
 	<div class="col-lg-5">
+		<b>Vaše hodnocení: </b>
+		{dump $serverUser}
+		{if $serverUser && ($vote = $cache->getUserVote($serverUser->id)) != 0}
+			{$vote|score}
+		{elseif $serverUser}
+			{for $i = 1; $i <= 5; $i++}<a data-tooltip title="Ohodnotit {$i}/5" n:href="vote! score => $i" class="nolink"><span id="vote{$i}" class="glyphicon glyphicon-heart-empty"></span></a>{/for}
+		{else}
+			Pro hodnocení se musíš přihlásit
+		{/if}
 		<h2>Poslední hodnocení</h2>
 		<table class="table table-responsive">
 			<thead>
@@ -90,21 +111,27 @@
 				</tr>
 			</thead>
 			<tbody>
-				{foreach $cache->votes->limit(5) as $vote}
+				{if count($votes = $cache->votes->limit(5))}
+					{foreach $votes as $vote}
+						<tr>
+							<td>
+								{var $u = $vote->user}
+								<a n:href=":Server:Users:detail id=>$u->nick">{$u->nick}</a>
+								{$u->role|role}
+							</td>
+							<td>
+								{$vote->time|time}
+							</td>
+							<td>
+								{$vote->score|score}
+							</td>
+						</tr>
+					{/foreach}
+				{else}
 					<tr>
-						<td>
-							{var $u = $vote->user}
-							<a n:href=":Server:Users:detail id=>$u->nick">{$u->nick}</a>
-							{$u->role|role}
-						</td>
-						<td>
-							{$vote->time|time}
-						</td>
-						<td>
-							{$vote->score|score}
-						</td>
+						<td class="text-center" colspan="3"><i>Nenalzeno žádné hodnocení</i></td>
 					</tr>
-				{/foreach}
+				{/if}
 			</tbody>
 		</table>
 	</div>

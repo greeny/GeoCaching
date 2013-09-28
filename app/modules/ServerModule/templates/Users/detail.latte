@@ -1,0 +1,25 @@
+{#content}
+<div class="page-header">
+	<h1>{$data->nick}<small> - detail uživatele</small></h1>
+</div>
+
+<table class="table table-responsive">
+	<tbody>
+		<tr>
+			<th>Zobrazované jméno</th>
+			<td>{$data->nick} {$data->role|role}</td>
+		</tr>
+		<tr>
+			<th>Nalezeno kešek</th>
+			<td>{$data->getFoundCount()}</td>
+		</tr>
+		<tr>
+			<th>Vytvořeno kešek</th>
+			<td>{$data->getCreatedCount()}</td>
+		</tr>
+		<tr>
+			<th>Průměrné hodnocení</th>
+			<td>{$data->getAverageVoting()|score}</td>
+		</tr>
+	</tbody>
+</table>

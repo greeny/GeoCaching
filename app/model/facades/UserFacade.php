@@ -14,9 +14,13 @@ class UserFacade extends Facade {
 	/** @var \GeoCaching\Model\Users */
 	protected $users;
 
-	public function __construct(Users $users)
+	/** @var \GeoCaching\Model\UserServers */
+	protected $userServers;
+
+	public function __construct(Users $users, UserServers $userServers)
 	{
 		$this->users = $users;
+		$this->userServers = $userServers;
 	}
 
 	public function registerUser(ArrayHash $data)
@@ -58,5 +62,14 @@ class UserFacade extends Facade {
 		$user->update(array('email_verified' => 1));
 
 		return true;
+	}
+
+	public function connect($userId, $serverUserId, $serverId)
+	{
+		$this->userServers->insert(array(
+			'server_id' => $serverId,
+			'user_id' => $userId,
+			'server_user_id' => $serverUserId,
+		));
 	}
 }

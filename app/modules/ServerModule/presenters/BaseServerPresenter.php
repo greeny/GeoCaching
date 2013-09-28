@@ -8,6 +8,7 @@ use GeoCaching\BasePresenter;
 use GeoCaching\Database\TableFactory;
 use GeoCaching\Model\Servers;
 use GeoCaching\Model\Users;
+use Nette\Database\Helpers;
 
 class BaseServerPresenter extends BasePresenter {
 
@@ -49,16 +50,6 @@ class BaseServerPresenter extends BasePresenter {
 			$this->serverUser = NULL;
 		}
 	}
-
-	/*
-	 * 211 = 11010011
-	 * 101011 = 43
-	 * 4a = 74
-	 * 512 = 200
-	 *
-	 *
-	 *
-	 */
 
 	public function beforeRender()
 	{

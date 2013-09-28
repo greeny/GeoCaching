@@ -6,6 +6,16 @@ body {
     border: 2px solid gray;
 }
 
+.nolink, .nolink:hover, .nolink:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.form-add-margin {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 .label-role-moderator {
     background-color: #f0ad4e;
 }

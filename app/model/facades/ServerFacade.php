@@ -6,6 +6,7 @@ namespace GeoCaching\Model;
 
 use GeoCaching\Security\PasswordCrypter;
 use Nette\ArrayHash;
+use Nette\Utils\Strings;
 
 class ServerFacade extends Facade {
 	/** @var \GeoCaching\Model\Servers  */
@@ -27,25 +28,20 @@ class ServerFacade extends Facade {
 
 	public function registerServer(ArrayHash $data)
 	{
-		//check for unique keys, etc.
-
-		//create database, etc.
-
-		// add permissions and create user
-
-		// add username, password, database name to $data
-
-		$this->servers->insert(array(
+		$server = $this->servers->createOrUpdate(array(
 			'name' => $data->name,
-			'database_name' => $data->database_name = 'aaa',
-			'username' => $data->username = 'username',
-			'password' => $data->password = PasswordCrypter::encrypt('password'),
+			'database_name' => $data->database_name = 'database_x',
+			'username' => $data->username = 'geocaching_x',
+			'password' => $data->password = PasswordCrypter::encrypt(Strings::random(10, 'a-zA-Z0-9')),
 			'shortcut' => $data->shortcut,
 			'ip' => $data->ip,
 			'dynmap' => $data->dynmap,
 			'description' => $data->description,
 		));
-
+		$server->update(array(
+			'database_name' => $data->database_name = 'geocaching_'.$server->id,
+			'username' => $data->username = 'geocaching_'.$server->id,
+		));
 		return $data;
 	}
 }

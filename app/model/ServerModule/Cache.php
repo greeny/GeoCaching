@@ -34,4 +34,20 @@ class Cache extends ActiveRow {
 	public function getVotes(){
 		return $this->related('cache_score', 'cache_id')->order('time DESC');
 	}
+
+	public function getUserVote($id)
+	{
+		$row = $this->related('cache_score', 'cache_id')->where('user_id', $id)->fetch();
+		return ($row ? $row->score: 0);
+	}
+
+	public function vote($userId, $score)
+	{
+		$this->related('cache_score', 'cache_id')->insert(array(
+			'user_id' => $userId,
+			'score' => $score,
+			'cache_id' => $this->id,
+			'time' => Time(),
+		));
+	}
 }

@@ -5,7 +5,27 @@
 <div class="row">
 	<div class="col-lg-4">
 		{$server->description}<hr>
-		Počet kešek: {$caches}
+		<h3>Nejnovější kešky</h3>
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>Jméno</th>
+					<th>Obtížnost</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach $caches as $cache}
+					<tr>
+						<td>
+							<i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->id">{$cache->name}</a>
+							{$cache->status|status}
+						</td>
+						<td>{$cache->difficulty|difficulty}</td>
+					</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		<a n:href="Caches:list" class="btn btn-default">Všechny kešky</a>
 	</div>
 
 	<div class="col-lg-8">

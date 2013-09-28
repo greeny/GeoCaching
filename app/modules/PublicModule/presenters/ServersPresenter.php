@@ -5,6 +5,7 @@
 namespace GeoCaching\PublicModule;
 
 use GeoCaching\Controls\Form;
+use GeoCaching\Database\TableFactory;
 use GeoCaching\Mails\RegisterServerMail;
 use GeoCaching\Model\ServerFacade;
 use GeoCaching\PublicModule\Forms\RegisterServerForm;
@@ -15,9 +16,13 @@ class ServersPresenter extends BasePublicPresenter {
 	/** @var  \GeoCaching\Model\ServerFacade */
 	protected $serverFacade;
 
-	public function inject(ServerFacade $serverFacade)
+	/** @var \GeoCaching\Database\TableFactory */
+	protected $tableFactory;
+
+	public function inject(ServerFacade $serverFacade, TableFactory $tableFactory)
 	{
 		$this->serverFacade = $serverFacade;
+		$this->tableFactory = $tableFactory;
 	}
 
 	public function renderList()
@@ -49,6 +54,8 @@ class ServersPresenter extends BasePublicPresenter {
 			$this->flashError($e->getMessage());
 			$this->refresh();
 		}
+
+		$this->tableFactory->createDatabase($v->username, $v->password, $v->database_name);
 
 		$mail = new RegisterServerMail($this, 'registerServerMail');
 		$mail->template->data = $v;

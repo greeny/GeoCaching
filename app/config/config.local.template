@@ -1,17 +1,14 @@
 parameters:
-
-nette:
 	database:
-		dsn: 'mysql:host=localhost;dbname=geocaching_global'
 		user: root
 		password:
-		options:
-			lazy: yes
+		server: localhost
+		dbName:
 
 services:
-    nette.mailer: Nette\Mail\SmtpMailer({
-        host: smtp.example.com
-        username: root@example.com
-        password:
-        secure: ssl
-    })
+	nette.mailer: Nette\Mail\SmtpMailer({
+    		host: smtp.example.com
+    		username: root
+    		password:
+    		secure: ssl
+    	})

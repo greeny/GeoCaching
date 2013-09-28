@@ -16,6 +16,13 @@ nette:
 		mapping:
 			*: GeoCaching\*Module\*Presenter
 
+	database:
+		dsn: 'mysql:host=%database.server%;dbname=%database.dbName%'
+		user: %database.user%
+		password: %database.password%
+		options:
+			lazy: yes
+
 	session:
 		expiration: 14 days
 
@@ -32,6 +39,7 @@ services:
 	- GeoCaching\Model\Servers
 	- GeoCaching\Model\ServersComments
 	- GeoCaching\Model\Users
+	- GeoCaching\Model\UserServers
 
 	## facades ##
 	- GeoCaching\Model\ServerFacade
@@ -47,7 +55,8 @@ services:
 		users: 'GeoCaching\ServerModule\Model\User'
 		cacheScores: 'GeoCaching\ServerModule\Model\CacheScore'
 	}, 'GeoCaching\Model\ActiveRow')
-	- GeoCaching\Database\TableFactory(@serverRowFactory)
+	- GeoCaching\Database\TableFactory(@serverRowFactory, [%database.user%, %database.password%])
+	## FIXME repair username and password ##
 
 
 	router: @GeoCaching\Routing\RouterFactory::createRouter
