@@ -32,6 +32,7 @@ database:
 			## rows ##
 			users: GeoCaching\Model\User
 			servers: GeoCaching\Model\Server
+			articles: GeoCaching\Model\Article
 		defaultClass: GeoCaching\Model\ActiveRow
 
 services:
@@ -40,10 +41,12 @@ services:
 	- GeoCaching\Model\ServersComments
 	- GeoCaching\Model\Users
 	- GeoCaching\Model\UserServers
+	- GeoCaching\Model\Articles
 
 	## facades ##
 	- GeoCaching\Model\ServerFacade
 	- GeoCaching\Model\UserFacade
+	- GeoCaching\Model\ArticleFacade
 
 	- GeoCaching\Security\Authenticator
 	- GeoCaching\Controls\MailSender

@@ -5,3 +5,20 @@
 		<p>aneb hledání pokladů na největším českém Minecraft serveru</p>
 	</div>
 </div>
+{/#}
+{#content}
+{if count(articles)}
+	<h3>Nenalezeny žádné články</h3>
+{/if}
+{foreach $articles as $article}
+	<div class="well">
+		<h2><a n:href="Articles:detail $article->shortcut">{$article->title}</a></h2>
+		<span class="glyphicon glyphicon-user"></span> <a n:href=":Public:User:detail id=>$article->author->name">{$article->author->name}</a>
+		{$article->author->role|role}<br>
+		<span class="glyphicon glyphicon-time"></span> {$article->time|time}<br>
+		<span class="glyphicon glyphicon-tags"></span>{if !count($article->tags)} žádné štítky{/if}
+		{foreach $article->tags as $tag}<a n:href="Articles:tag $tag->tag">{$tag->tag}</a>{sep}, {/sep}{/foreach}
+		<hr>
+		{$article->content|truncate:100}
+	</div>
+{/foreach}

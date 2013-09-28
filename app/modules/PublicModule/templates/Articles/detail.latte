@@ -1,0 +1,20 @@
+{#content}
+<div class="page-header">
+	<h1>{$article->title}</h1>
+</div>
+<span class="glyphicon glyphicon-user"></span> <a n:href=":Public:User:detail id=>$article->author->name">{$article->author->name}</a>
+{$article->author->role|role}<br>
+<span class="glyphicon glyphicon-time"></span> {$article->time|time}<br>
+<span class="glyphicon glyphicon-tags"></span>{if !count($article->tags)} žádné štítky{/if}
+{foreach $article->tags as $tag}<a n:href="Articles:tag $tag->tag">{$tag->tag}</a>{sep}, {/sep}{/foreach}
+<hr>
+{$article->content}
+<hr>
+{foreach $article->comments as $comment}
+	<div class="well well-sm">
+		<span class="glyphicon glyphicon-user"></span> <a n:href=":Public:User:detail id=>$comment->user->name">{$comment->user->name}</a>
+		{$comment->user->role|role}<br>
+		<span class="glyphicon glyphicon-time"></span> {$comment->time|time}<br>
+		<span class="glyphicon glyphicon-comment"></span> {$comment->text}
+	</div>
+{/foreach}

@@ -17,15 +17,11 @@ body {
 }
 
 .label-role-moderator {
-    background-color: #f0ad4e;
-}
-
-.label-role-admin {
     background-color: #5bc0de;
 }
 
-.label-role-superadmin {
-    background-color: #428bca;
+.label-role-admin {
+    background-color: #f0ad4e;
 }
 
 .label-role-owner {
