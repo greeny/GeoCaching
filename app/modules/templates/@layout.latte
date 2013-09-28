@@ -35,7 +35,8 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span> {$server->name}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li{ifCurrent :Server:Dashboard:default} class="active"{/ifCurrent}><a n:href=":Server:Dashboard:default"><span class="glyphicon glyphicon-th-large"></span> Základní informace</a></li>
-							<li{ifCurrent :Server:Caches:list} class="active"{/ifCurrent}><a n:href=":Server:Caches:list"><span class="glyphicon glyphicon-list"></span> Seznam kešek</a></li>
+							<li{ifCurrent :Server:Caches:list} class="active"{/ifCurrent}><a n:href=":Server:Caches:list"><i class="icon-archive"></i> Seznam kešek</a></li>
+							<li{ifCurrent :Server:Users:list} class="active"{/ifCurrent}><a n:href=":Server:Users:list"><span class="glyphicon glyphicon-user"></span> Seznam uživatelů</a></li>
 						</ul>
 					</li>
 				{/ifset}

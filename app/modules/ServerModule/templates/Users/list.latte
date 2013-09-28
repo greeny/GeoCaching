@@ -1,0 +1,28 @@
+{#content}
+<div class="page-header">
+	<h1>Seznam uživatelů<small> serveru {$server->name}</small></h1>
+</div>
+
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			<th>Jméno</th>
+			<th>Počet nalezených kešek</th>
+			<th>Počet vytvořených kešek</th>
+			<th>Průměrné hodnocení</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach $users as $u}
+			<tr>
+				<td>
+					<a n:href=":Server:Users:detail id=>$u->nick">{$u->nick}</a>
+					{$u->role|role}
+				</td>
+				<td>{$u->getFoundCount()}</td>
+				<td>{$u->getCreatedCount()}</td>
+				<td>{$u->getAverageVoting()|score}</td>
+			</tr>
+		{/foreach}
+	</tbody>
+</table>

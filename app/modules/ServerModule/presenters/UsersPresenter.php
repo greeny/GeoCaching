@@ -51,4 +51,22 @@ class UsersPresenter extends BaseServerPresenter {
 		$this->flashSuccess('Účty byly propojeny.');
 		$this->redirect(':Server:Users:detail', array('id' => $v->nick));
 	}
+
+	public function renderList()
+	{
+		$this->template->users = $this->tableFactory->users->findAll()->order('nick ASC');
+	}
+
+	public function handlePromote($to)
+	{
+		static $array = array('admin', 'superadmin', 'owner');
+		if(in_array($this->serverUser->role, $array)) {
+			$user = $this->tableFactory->users->findOneBy('nick', $this->params['id']);
+			if($user) {
+				$user->update(array('role' => $to));
+				$this->flashSuccess("Uživateli byla přiřazena role '".ucfirst($to)."'.");
+			}
+		}
+		$this->refresh();
+	}
 }

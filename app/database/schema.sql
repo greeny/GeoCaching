@@ -67,11 +67,7 @@ CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nick` varchar(255) NOT NULL,
   `cache_limit` int(10) unsigned NOT NULL,
-  `role` enum('guest','member','moderator','admin','superadmin','owner') NOT NULL DEFAULT 'guest',
+  `role` enum('member','moderator','admin','owner') NOT NULL DEFAULT 'member',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nick` (`nick`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- CREATE DATABASE `database_name` COLLATE 'utf8_general_ci';
--- CREATE USER 'username'@'localhost' IDENTIFIED BY PASSWORD '*2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19';
--- GRANT DELETE, INSERT, SELECT, UPDATE ON database_name.* TO 'username'@'localhost';

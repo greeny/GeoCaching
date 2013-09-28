@@ -3,6 +3,18 @@
 
 <div class="page-header">
 	<h1><i class="icon-archive"></i> {$cache->name} <small>{$cache->status|status}</small></h1>
+	{if $serverUser && in_array($serverUser->role, array('moderator', 'admin', 'superadmin', 'owner'))}
+		<div class="dropdown pull-right">
+			<a href="#" data-toggle="dropdown" class="btn btn-primary">
+				Administrace <span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a n:href="active!">Aktivovat kešku</a></li>
+				<li><a n:href="approval!">Vyžádat schválení</a></li>
+				<li><a n:href="disabled!">Deaktivovat kešku</a></li>
+			</ul>
+		</div>
+	{/if}
 </div>
 
 <div class="row">
