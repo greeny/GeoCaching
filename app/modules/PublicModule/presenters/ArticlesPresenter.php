@@ -23,4 +23,6 @@ class ArticlesPresenter extends BasePublicPresenter {
 			$this->redirect('Dashboard:default');
 		}
 	}
+
+	// TODO add renderTag() and possibility to comment, write articles, etc.
 }

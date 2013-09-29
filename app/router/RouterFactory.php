@@ -19,16 +19,52 @@ class RouterFactory
 	 */
 	public function createRouter()
 	{
+		$filterModule = array(
+			'server' => 'Server',
+		);
+		$filterPresenter = array(
+			'clanky' => 'Articles',
+			'servery' => 'Servers',
+			'uzivatele' => 'Users',
+			'kesky' => 'Caches',
+		);
+
+		$filterAction = array(
+			'seznam' => 'list',
+			'registrace' => 'register',
+			'prihlaseni' => 'login',
+			'potvrdit' => 'verify',
+			'propojit' => 'connect',
+		);
+
 		$router = new RouteList();
 		$router[] = new Route('server/<server>/<presenter>/<action>[/<id>]', array(
-			'module' => 'Server',
-			'presenter' => 'Dashboard',
-			'action' => 'default',
+			'module' => array(
+				Route::VALUE => 'Server',
+				Route::FILTER_TABLE => $filterModule,
+			),
+			'presenter' => array(
+				Route::VALUE => 'Dashboard',
+				Route::FILTER_TABLE => $filterPresenter,
+			),
+			'action' => array(
+				Route::VALUE => 'default',
+				Route::FILTER_TABLE => $filterAction,
+			),
 		));
 		$router[] = new Route('<presenter>/<action>[/<id>]', array(
-			'module' => 'Public',
-			'presenter' => 'Dashboard',
-			'action' => 'default',
+			'module' => array(
+				Route::VALUE => 'Public',
+				Route::FILTER_TABLE => $filterModule,
+			),
+			'presenter' => array(
+				Route::VALUE => 'Dashboard',
+				Route::FILTER_TABLE => $filterPresenter,
+			),
+			'action' => array(
+				Route::VALUE => 'default',
+				Route::FILTER_TABLE => $filterAction,
+			),
 		));
 		return $router;
 	}

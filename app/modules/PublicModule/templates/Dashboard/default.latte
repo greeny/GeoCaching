@@ -13,11 +13,12 @@
 {foreach $articles as $article}
 	<div class="well">
 		<h2><a n:href="Articles:detail $article->shortcut">{$article->title}</a></h2>
-		<span class="glyphicon glyphicon-user"></span> <a n:href=":Public:User:detail id=>$article->author->name">{$article->author->name}</a>
+		<span data-tooltip title="Autor" class="glyphicon glyphicon-user"></span> <a n:href=":Public:User:detail id=>$article->author->name">{$article->author->name}</a>
 		{$article->author->role|role}<br>
-		<span class="glyphicon glyphicon-time"></span> {$article->time|time}<br>
-		<span class="glyphicon glyphicon-tags"></span>{if !count($article->tags)} žádné štítky{/if}
-		{foreach $article->tags as $tag}<a n:href="Articles:tag $tag->tag">{$tag->tag}</a>{sep}, {/sep}{/foreach}
+		<span data-tooltip title="Čas vydání" class="glyphicon glyphicon-time"></span> {$article->time|time}<br>
+		<span data-tooltip title="Štítky" class="glyphicon glyphicon-tags"></span>{if !count($article->tags)} žádné štítky{/if}
+		{foreach $article->tags as $tag}<a data-tooltip title="Všechny články se štítkem '{$tag->tag}'" n:href="Articles:tag $tag->tag">{$tag->tag}</a>{sep}, {/sep}{/foreach}<br>
+		<span data-tooltip title="Komentáře" class="glyphicon glyphicon-comment"></span> {count($article->comments)}x
 		<hr>
 		{$article->content|truncate:100}
 	</div>
