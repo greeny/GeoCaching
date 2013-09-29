@@ -77,8 +77,8 @@ class TableFactory extends Object {
 		$this->connection->query("CREATE DATABASE `$dbname` COLLATE 'utf8_general_ci';");
 		$this->connection->query("CREATE USER '$username'@'localhost' IDENTIFIED BY '$password'");
 		$this->connection->query("GRANT DELETE, INSERT, SELECT, UPDATE ON $dbname.* TO '$username'@'localhost'");
-		$this->connection->query("CREATE USER '$username'@'%' IDENTIFIED BY '$password'");
-		$this->connection->query("GRANT DELETE, INSERT, SELECT, UPDATE ON $dbname.* TO '$username'@'%'");
+		//$this->connection->query("CREATE USER '$username'@'%' IDENTIFIED BY '$password'");
+		//$this->connection->query("GRANT DELETE, INSERT, SELECT, UPDATE ON $dbname.* TO '$username'@'%'");
 		$connection = new Connection("mysql:host=localhost;dbname=$dbname", $this->username, $this->password);
 		Helpers::loadFromFile($connection, __DIR__.'/schema.sql');
 	}
