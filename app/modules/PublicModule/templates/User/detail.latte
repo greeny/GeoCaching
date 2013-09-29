@@ -1,0 +1,29 @@
+{#content}
+<div class="page-header">
+	<h1>Detaily uživatele {$u->name}<small> {$u->role|role}</small></h1>
+</div>
+
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			<th>Email</th>
+			<th><a href="mailto:{$u->email}"}>{$u->email}</a></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><span data-tooltip title="Aktualizováno každých 30 minut">Poslední aktivita</span></td>
+			<td><span data-tooltip title="Aktualizováno každých 30 minut">{$u->last_login|time}</span></td>
+		</tr>
+		<!--<tr>
+			<td>Stav účtu</td>
+			<td>{$u->money}</td>
+		</tr>-->
+		{foreach $u->data as $data}
+			<tr>
+				<td>{$data->key}</td>
+				<td>{$data->value|data:$data->type}</td>
+			</tr>
+		{/foreach}
+	</tbody>
+</table>

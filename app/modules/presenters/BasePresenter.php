@@ -3,6 +3,7 @@
 namespace GeoCaching;
 
 use GeoCaching\Controls\MailSender;
+use GeoCaching\Model\UserFacade;
 use Nette\Application\UI\Presenter;
 use GeoCaching\Templating\Helpers;
 
@@ -14,10 +15,17 @@ abstract class BasePresenter extends Presenter
 	/** @var MailSender */
 	protected $mailSender;
 
+	/** @var \GeoCaching\Model\UserFacade */
+	protected $userFacade;
+
 	public function beforeRender()
 	{
 		parent::beforeRender();
 		Helpers::prepareTemplate($this->template);
+		if($this->user->isLoggedIn()) {
+			$this->userFacade->updateLastLogin($this->user->id);
+			$this->template->globalUser = $this->userFacade->getUserByName($this->user->identity->name);
+		}
 	}
 
 	public function handleLogout()
@@ -29,9 +37,10 @@ abstract class BasePresenter extends Presenter
 		$this->redirect(":Public:Dashboard:default");
 	}
 
-	public function injectBase(MailSender $mailSender)
+	public function injectBase(MailSender $mailSender, UserFacade $userFacade)
 	{
 		$this->mailSender = $mailSender;
+		$this->userFacade = $userFacade;
 	}
 
 	public function flashError($message)

@@ -17,10 +17,19 @@ class UserFacade extends Facade {
 	/** @var \GeoCaching\Model\UserServers */
 	protected $userServers;
 
-	public function __construct(Users $users, UserServers $userServers)
+	/** @var \GeoCaching\Model\UserData */
+	protected $userData;
+
+	public function __construct(Users $users, UserServers $userServers, UserData $userData)
 	{
 		$this->users = $users;
 		$this->userServers = $userServers;
+		$this->userData = $userData;
+	}
+
+	public function getUserByName($name)
+	{
+		return $this->users->findOneBy('name', $name);
 	}
 
 	public function registerUser(ArrayHash $data)
@@ -71,5 +80,34 @@ class UserFacade extends Facade {
 			'user_id' => $userId,
 			'server_user_id' => $serverUserId,
 		));
+	}
+
+	public function removeData($id)
+	{
+		$a = $this->userData->find($id);
+		if($a) {
+			$a->delete();
+		}
+	}
+
+	public function addData($userId, ArrayHash $data)
+	{
+		$this->userData->insert(array(
+			'user_id' => $userId,
+			'key' => $data->key,
+			'value' => $data->value,
+			'type' => $data->type,
+		));
+	}
+
+	public function updateLastLogin($id)
+	{
+		$user = $this->users->find($id);
+		if(!$user) {
+			return;
+		}
+		if($user->last_login + 60*30 < Time()) {
+			$user->update(array('last_login' => Time()));
+		}
 	}
 }

@@ -15,8 +15,12 @@ class ServerFacade extends Facade {
 	/** @var \GeoCaching\Model\ServersComments  */
 	protected $serversComments;
 
-	public function __construct(Servers $servers, ServersComments $serversComments)
+	/** @var \GeoCaching\Model\FavoriteServers */
+	protected $favoriteServers;
+
+	public function __construct(Servers $servers, ServersComments $serversComments, FavoriteServers $favoriteServers)
 	{
+		$this->favoriteServers = $favoriteServers;
 		$this->servers = $servers;
 		$this->serversComments = $serversComments;
 	}
@@ -26,9 +30,10 @@ class ServerFacade extends Facade {
 		return $this->servers->findAll()->where('active', TRUE);
 	}
 
-	public function registerServer(ArrayHash $data)
+	public function registerServer(ArrayHash $data, $owner)
 	{
-		$server = $this->servers->createOrUpdate(array(
+		$server = $this->servers->create(array(
+			'owner' => $owner,
 			'name' => $data->name,
 			'database_name' => $data->database_name = 'database_x',
 			'username' => $data->username = 'geocaching_x',
@@ -43,5 +48,23 @@ class ServerFacade extends Facade {
 			'username' => $data->username = 'geocaching_'.$server->id,
 		));
 		return $data;
+	}
+
+	public function addFavorite($userId, $serverId)
+	{
+		try {
+			$this->favoriteServers->insert(array(
+				'user_id' => $userId,
+				'server_id' => $serverId,
+			));
+		} catch(\Exception $e) {}
+	}
+
+	public function removeFavorite($userId, $serverId)
+	{
+		$server = $this->favoriteServers->findBy('user_id', $userId)->where('server_id', $serverId);
+		if($server) {
+			$server->delete();
+		}
 	}
 }

@@ -49,7 +49,7 @@ class ServersPresenter extends BasePublicPresenter {
 	{
 		$v = new ArrayHash();
 		try {
-			$v = $this->serverFacade->registerServer($v = $form->getValues());
+			$v = $this->serverFacade->registerServer($v = $form->getValues(), $this->user->id);
 		} catch(RegisterServerException $e) {
 			$this->flashError($e->getMessage());
 			$this->refresh();
@@ -66,5 +66,23 @@ class ServersPresenter extends BasePublicPresenter {
 
 		$this->flashSuccess('Server úspěšně zaregistrován, zkontroluj si emailovou schránku.');
 		$this->redirect(':Server:Dashboard:default', array('server' => $v->shortcut));
+	}
+
+	public function handleFavorite($id)
+	{
+		if($this->user->isLoggedIn()) {
+			$this->serverFacade->addFavorite($this->user->id, $id);
+			$this->flashSuccess('Server přidán do oblíbených.');
+		}
+		$this->refresh();
+	}
+
+	public function handleUnfavorite($id)
+	{
+		if($this->user->isLoggedIn()) {
+			$this->serverFacade->removeFavorite($this->user->id, $id);
+			$this->flashSuccess('Server odebrán z oblíbených.');
+		}
+		$this->refresh();
 	}
 }

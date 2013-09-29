@@ -16,7 +16,7 @@ class CachesPresenter extends BaseServerPresenter {
 
 	public function renderDetail($id)
 	{
-		if(!$this->template->cache = $cache = $this->tableFactory->caches->find($id)) {
+		if(!$this->template->cache = $cache = $this->tableFactory->caches->findOneBy('name', $id)) {
 			$this->flashError("Keška nenalezena.");
 			$this->redirect("Caches:list");
 		}
@@ -42,7 +42,7 @@ class CachesPresenter extends BaseServerPresenter {
 
 	public function handleVote($score)
 	{
-		$cache = $this->tableFactory->caches->find($this->params['id']);
+		$cache = $this->tableFactory->caches->findOneBy('name', $this->params['id']);
 		if($cache && $this->serverUser) {
 			$cache->vote($this->serverUser->id, $score);
 			$this->flashSuccess('Hodnocení bylo přidáno.');
@@ -54,7 +54,7 @@ class CachesPresenter extends BaseServerPresenter {
 	{
 		static $array = array('moderator', 'admin', 'superadmin', 'owner');
 		if(in_array($this->serverUser->role, $array)) {
-			$cache = $this->tableFactory->caches->find($this->params['id']);
+			$cache = $this->tableFactory->caches->findOneBy('name', $this->params['id']);
 			if($cache) {
 				$cache->update(array('status' => Cache::ACTIVE));
 				$this->flashSuccess('Keška byla nastavena jako aktivní.');
@@ -67,7 +67,7 @@ class CachesPresenter extends BaseServerPresenter {
 	{
 		static $array = array('moderator', 'admin', 'superadmin', 'owner');
 		if(in_array($this->serverUser->role, $array)) {
-			$cache = $this->tableFactory->caches->find($this->params['id']);
+			$cache = $this->tableFactory->caches->findOneBy('name', $this->params['id']);
 			if($cache) {
 				$cache->update(array('status' => Cache::APPROVAL));
 				$this->flashSuccess('Keška byla nastavena jako čekající na ověření.');
@@ -80,7 +80,7 @@ class CachesPresenter extends BaseServerPresenter {
 	{
 		static $array = array('moderator', 'admin', 'superadmin', 'owner');
 		if(in_array($this->serverUser->role, $array)) {
-			$cache = $this->tableFactory->caches->find($this->params['id']);
+			$cache = $this->tableFactory->caches->findOneBy('name', $this->params['id']);
 			if($cache) {
 				$cache->update(array('status' => Cache::DISABLED));
 				$this->flashSuccess('Keška byla nastavena jako neaktivní.');

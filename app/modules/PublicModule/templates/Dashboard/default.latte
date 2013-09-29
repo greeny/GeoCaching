@@ -7,7 +7,7 @@
 </div>
 {/#}
 {#content}
-{if count(articles)}
+{if !count(articles)}
 	<h3>Nenalezeny žádné články</h3>
 {/if}
 {foreach $articles as $article}

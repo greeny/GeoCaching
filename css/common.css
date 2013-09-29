@@ -39,3 +39,24 @@ body {
 .label-status-disabled {
     background-color: #d9534f;
 }
+.form-control-inline-large {
+    width: 95%;
+    display: inline;
+}
+
+.form-control-inline {
+    width: 50%;
+    display: inline;
+    margin-right: 5%;
+}
+
+.form-control-inline-small {
+    width: 25%;
+    display: inline;
+    margin-right: 5%;
+}
+
+.form-control-inline-mini {
+    width: 10%;
+    display: inline;
+}

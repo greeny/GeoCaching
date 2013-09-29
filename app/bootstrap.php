@@ -11,6 +11,7 @@ $configurator->enableDebugger(__DIR__ . '/../log');
 
 // Specify folder for cache
 $configurator->setTempDirectory(__DIR__ . '/../temp');
+$configurator->setDebugMode(TRUE);
 
 $configurator->onCompile[] = function($configurator, $compiler) {
 	$compiler->addExtension('database', new DatabaseExtension);

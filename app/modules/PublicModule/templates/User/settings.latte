@@ -1,0 +1,25 @@
+{#content}
+<div class="page-header">
+	<h1>Nastavení osobních údajů</h1>
+</div>
+
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			{form addDataForm, class=>form-inline}
+				<th>{input key, class => 'form-control form-control-inline-large'}</th>
+				<th>{input value, class=>'form-control form-control-inline'}{input type class => 'form-control form-control-inline-small'}
+					{input add, class=>'btn btn-primary form-control form-control-inline-mini'}</th>
+			{/form}
+		</tr>
+	</thead>
+	<tbody>
+		{foreach $u->data as $data}
+			<tr>
+				<td><a n:href="delete! $data->id" class="close pull-left" data-tooltip title="Odstranit řádek">&times;</a>&nbsp;
+					{$data->key}</td>
+				<td>{$data->value|data:$data->type}</td>
+			</tr>
+		{/foreach}
+	</tbody>
+</table>

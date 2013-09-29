@@ -1,13 +1,13 @@
 {#content}
 <div class="page-header">
 	<h1>{$data->nick}<small> - detail uživatele</small></h1>
-	{if $serverUser && in_array($serverUser->role, array('admin', 'superadmin', 'owner'))}
+	{if $serverUser && in_array($serverUser->role, array('admin', 'owner'))}
 		<div class="dropdown pull-right">
 			<a href="#" data-toggle="dropdown" class="btn btn-primary">
 				Administrace <span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				{foreach array('member', 'moderator', 'admin', 'superadmin', 'owner') as $role}
+				{foreach array('member', 'moderator', 'admin', 'owner') as $role}
 					<li><a n:href="promote! $role">Nastavit roli {ucfirst($role)}</a></li>
 				{/foreach}
 			</ul>

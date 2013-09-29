@@ -3,7 +3,7 @@
 
 <div class="page-header">
 	<h1><i class="icon-archive"></i> {$cache->name} <small>{$cache->status|status}</small></h1>
-	{if $serverUser && in_array($serverUser->role, array('moderator', 'admin', 'superadmin', 'owner'))}
+	{if $serverUser && in_array($serverUser->role, array('moderator', 'admin', 'owner'))}
 		<div class="dropdown pull-right">
 			<a href="#" data-toggle="dropdown" class="btn btn-primary">
 				Administrace <span class="caret"></span>
@@ -24,7 +24,7 @@
 				<table class="table table-responsive">
 					<thead>
 						<tr>
-							<td>Obtížnost</td>
+							<td><b>Obtížnost</b></td>
 							<td>
 								{$cache->difficulty|difficulty}
 							</td>
@@ -32,9 +32,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Hodnocení</td>
+							<td><b>Hodnocení</b></td>
 							<td>
 								{$cache->getScore()|score}
+							</td>
+						</tr>
+						<tr>
+							<td><b>Nalezeno</b></td>
+							<td>
+								{$cache->getFoundCount()}x
 							</td>
 						</tr>
 					</tbody>
@@ -44,17 +50,21 @@
 				<table class="table table-responsive">
 					<thead>
 						<tr>
-							<td>Svět</td>
+							<td><b>Svět</b></td>
 							<td>{$cache->world}</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Vlastník</td>
+							<td><b>Vlastník</b></td>
 							<td>
 								<a n:href=":Server:Users:detail id=>$cache->user->nick">{$cache->user->nick}</a>
 								{$cache->user->role|role}
 							</td>
+						</tr>
+						<tr>
+							<td><b>Vytvořeno</b></td>
+							<td>{$cache->time|time}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -105,11 +115,14 @@
 
 	<div class="col-lg-5">
 		<b>Vaše hodnocení: </b>
-		{dump $serverUser}
 		{if $serverUser && ($vote = $cache->getUserVote($serverUser->id)) != 0}
 			{$vote|score}
 		{elseif $serverUser}
-			{for $i = 1; $i <= 5; $i++}<a data-tooltip title="Ohodnotit {$i}/5" n:href="vote! score => $i" class="nolink"><span id="vote{$i}" class="glyphicon glyphicon-heart-empty"></span></a>{/for}
+			{if $serverUser->id == $cache->owner}
+				Nemůžeš hodnotit vlastní kešku.
+			{else}
+				{for $i = 1; $i <= 5; $i++}<a data-tooltip title="Ohodnotit {$i}/5" n:href="vote! score => $i" class="nolink"><span id="vote{$i}" class="glyphicon glyphicon-heart-empty"></span></a>{/for}
+			{/if}
 		{else}
 			Pro hodnocení se musíš přihlásit
 		{/if}

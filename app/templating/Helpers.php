@@ -53,5 +53,23 @@ class Helpers extends Object {
 			$text = (int) $text;
 			return date('j.n.Y G:i:s', $text);
 		});
+
+		$template->registerHelper('data', function($text, $type) {
+			if($type === 'string') {
+				return $text;
+			} else if($type === 'int') {
+				return (int) $text;
+			} else if($type === 'email') {
+				return Html::el('a')->addAttributes(array(
+					'href' => 'mailto:'.$text,
+				))->setText($text);
+			} else if($type === 'web') {
+				return Html::el('a')->addAttributes(array(
+					'href' => (substr($text, 0, 4) === 'http' ? $text : 'http://'.$text),
+				))->setText(substr($text, 0, 4) === 'http' ? $text : 'http://'.$text);
+			} else {
+				return $text;
+			}
+		});
 	}
 }

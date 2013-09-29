@@ -41,6 +41,8 @@ services:
 	- GeoCaching\Model\ServersComments
 	- GeoCaching\Model\Users
 	- GeoCaching\Model\UserServers
+	- GeoCaching\Model\UserData
+	- GeoCaching\Model\FavoriteServers
 	- GeoCaching\Model\Articles
 
 	## facades ##

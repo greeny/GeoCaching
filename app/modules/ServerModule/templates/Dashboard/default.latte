@@ -1,6 +1,6 @@
 {#content}
 <div class="page-header">
-	<h1>Server: {$server->name}</h1>
+	<h1>Server: {dump $server} {$server->name}</h1>
 </div>
 <div class="row">
 	<div class="col-lg-4">
@@ -17,7 +17,7 @@
 				{foreach $caches as $cache}
 					<tr>
 						<td>
-							<i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->id">{$cache->name}</a>
+							<i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->name">{$cache->name}</a>
 							{$cache->status|status}
 						</td>
 						<td>{$cache->difficulty|difficulty}</td>

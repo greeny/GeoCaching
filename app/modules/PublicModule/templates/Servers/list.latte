@@ -16,9 +16,19 @@
 				<td colspan="3"><div class="text-center"><i>Žádné servery nenalezeny</i></div></td>
 			</tr>
 		{else}
+			{ifset $globalUser}
+				{dump $favorite = $globalUser->getFavoriteServersIds()}
+			{/ifset}
 			{foreach $servers as $server}
 				<tr>
-					<td><a n:href=":Server:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
+					<td>{ifset $globalUser}
+							{if in_array($server->id, $favorite)}
+								<a n:href="unfavorite! $server->id" data-tooltip title="Odebrat z oblíbených" class="nolink"><span class="glyphicon glyphicon-star"></span></a>
+							{else}
+								<a n:href="favorite! $server->id" data-tooltip title="Přidat do oblíbených" class="nolink"><span class="glyphicon glyphicon-star-empty"></span></a>
+							{/if}
+						{/ifset}
+						<a n:href=":Server:Dashboard:default server=>$server->shortcut">{$server->name}</a></td>
 					<td>{$server->ip ? $server->ip : '-'}</td>
 					<td>{if $server->dynmap}<a href="{$server->dynmap}" target="_blank">{$server->dynmap}</a>{else}-{/if}</td>
 				</tr>

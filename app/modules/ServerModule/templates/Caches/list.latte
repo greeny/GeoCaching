@@ -17,7 +17,7 @@
 		{if count($caches)}
 			{foreach $caches as $cache}
 				<tr>
-					<td><i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->id">{$cache->name}</a> {$cache->status|status}</td>
+					<td><i class="icon-archive"></i> <a n:href="Caches:detail id => $cache->name">{$cache->name}</a> {$cache->status|status}</td>
 					<td>{$cache->getFoundCount()}</td>
 					<td>{$cache->difficulty|difficulty}</td>
 					<td>{$cache->score|score}</td>

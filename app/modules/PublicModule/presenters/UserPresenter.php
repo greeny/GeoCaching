@@ -7,6 +7,7 @@ namespace GeoCaching\PublicModule;
 use GeoCaching\BasePresenter;
 use GeoCaching\Controls\Form;
 use GeoCaching\Model\UserFacade;
+use GeoCaching\PublicModule\Forms\AddDataForm;
 use GeoCaching\PublicModule\Forms\LoginForm;
 use GeoCaching\PublicModule\Forms\RegisterForm;
 use GeoCaching\PublicModule\Forms\VerifyForm;
@@ -16,15 +17,7 @@ use GeoCaching\VerifyException;
 use Nette\ArrayHash;
 use Nette\Security\AuthenticationException;
 
-class UserPresenter extends BasePresenter {
-	/** @var \GeoCaching\Model\UserFacade */
-	protected $userFacade;
-
-	public function inject(UserFacade $userFacade)
-	{
-		$this->userFacade = $userFacade;
-	}
-
+class UserPresenter extends BasePublicPresenter {
 	public function createComponentRegisterForm()
 	{
 		$form = new RegisterForm();
@@ -116,5 +109,54 @@ class UserPresenter extends BasePresenter {
 			$this->flashSuccess('Ověření proběhlo úspěšně, nyní se můžete přihlásit.');
 			$this->redirect("User:login");
 		}
+	}
+
+	public function renderDetail($id)
+	{
+		if(!$this->template->u = $this->userFacade->getUserByName($id)) {
+			$this->flashError("Uživatel '$id' nenalezen.");
+			$this->redirect('Dashboard:default');
+		}
+	}
+
+	public function renderSettings()
+	{
+		if(!$this->user->isLoggedIn()) {
+			$this->flashError('Pro nastavení účtu se musíte přihlásit.');
+			$this->redirect('User:login');
+		}
+		$this->template->u = $this->userFacade->getUserByName($this->user->identity->name);
+	}
+
+	public function handleDelete($id)
+	{
+		$this->userFacade->removeData($id);
+		$this->flashSuccess('Řádek byl odstraněn.');
+		$this->refresh();
+	}
+
+	public function createComponentAddDataForm()
+	{
+		$form = new \Nette\Application\UI\Form;
+		$form->addText('key', 'Název')->setRequired('Prosím zadej název.');
+		$form->addText('value', 'Hodnota')->setRequired('Prosím zadej hodnotu.');
+		$form->addSelect('type', 'Typ', array(
+			'string' => 'Text',
+			'int' => 'Číslo',
+			'email' => 'E-mail',
+			'web' => 'Web',
+		))->setPrompt('- Zadej typ -')->setRequired('Prosím zadej typ.');
+		$form->addSubmit('add', 'Přidat');
+		$form->onSuccess[] = $this->addDataFormSuccess;
+		return $form;
+	}
+
+	public function addDataFormSuccess(\Nette\Application\UI\Form $form)
+	{
+		if($this->user->isLoggedIn()) {
+			$this->userFacade->addData($this->user->id, $form->getValues());
+			$this->flashSuccess('Řádek byl přidán.');
+		}
+		$this->refresh();
 	}
 }
