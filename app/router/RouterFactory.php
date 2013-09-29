@@ -26,6 +26,7 @@ class RouterFactory
 			'clanky' => 'Articles',
 			'servery' => 'Servers',
 			'uzivatele' => 'Users',
+			'uzivatel' => 'User',
 			'kesky' => 'Caches',
 		);
 
