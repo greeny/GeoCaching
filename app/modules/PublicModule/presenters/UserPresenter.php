@@ -42,7 +42,7 @@ class UserPresenter extends BasePublicPresenter {
 		$this->mailSender->send($mail, $data->email);
 
 		$this->flashSuccess('Registrace proběhla úspěšně, prosím potvrďte svůj email.');
-		$this->redirect('User:verify');
+		$this->redirect('User:verify', array('id' => $data->name));
 	}
 
 	public function createComponentVerifyForm()

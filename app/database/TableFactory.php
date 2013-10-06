@@ -136,4 +136,9 @@ class TableFactory extends Object {
 	{
 		return $this->getTable('logs');
 	}
+
+	public function getConnection()
+	{
+		return $this->modelManager->getConnection();
+	}
 }

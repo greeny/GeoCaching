@@ -4,6 +4,7 @@ namespace GeoCaching;
 
 use GeoCaching\Controls\MailSender;
 use GeoCaching\Model\UserFacade;
+use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use GeoCaching\Templating\Helpers;
 
@@ -55,5 +56,22 @@ abstract class BasePresenter extends Presenter
 
 	public function refresh() {
 		$this->redirect('this');
+	}
+
+	public function createComponentPaginatorForm()
+	{
+		$form = new Form();
+		$form->addText('page', 'Přejít na stranu:')
+			->setRequired('Prosím vyplň stranu na kterou chceš přejít.')
+			->setAttribute('placeholder', 'Stránka');
+
+		$form->addSubmit('goto', 'Přejít');
+		$form->onSuccess[] = $this->paginatorFormSuccess;
+		return $form;
+	}
+
+	public function paginatorFormSuccess(Form $form)
+	{
+		$this->redirect('this', array($form->getValues()->page));
 	}
 }

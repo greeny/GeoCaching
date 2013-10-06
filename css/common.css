@@ -60,3 +60,15 @@ body {
     width: 10%;
     display: inline;
 }
+
+.form-control-inline-micro {
+    width: 75px;
+    height: 20px;
+    display: inline;
+}
+
+.form-paginator {
+    margin: 0;
+    padding: 6px 10px 5px 10px !important;
+    border-spacing: 0;
+}

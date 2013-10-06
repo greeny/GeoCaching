@@ -6,10 +6,26 @@
 <table class="table table-responsive">
 	<thead>
 		<tr>
-			<th>Jméno</th>
-			<th>Počet nalezených kešek</th>
-			<th>Počet vytvořených kešek</th>
-			<th>Průměrné hodnocení</th>
+			<th>
+				<a n:href="this 1, order => nick, orderType => ($order == nick && $orderType == 'ASC' ? 'DESC' : 'ASC')">
+					<i class="icon-sort{if $order == 'nick'}-{($orderType == 'DESC' ? 'down' : 'up')}{/if}"></i> Jméno
+				</a>
+			</th>
+			<th>
+				<a n:href="this 1, order => found, orderType => ($order == found && $orderType == 'DESC' ? 'ASC' : 'DESC')">
+					<i class="icon-sort{if $order == 'found'}-{($orderType == 'DESC' ? 'down' : 'up')}{/if}"></i> Počet nalezených kešek
+				</a>
+			</th>
+			<th>
+				<a n:href="this 1, order => created, orderType => ($order == created && $orderType == 'DESC' ? 'ASC' : 'DESC')">
+					<i class="icon-sort{if $order == 'created'}-{($orderType == 'DESC' ? 'down' : 'up')}{/if}"></i> Počet vytvořených kešek
+				</a>
+			</th>
+			<th>
+				<a n:href="this 1, order => voting, orderType => ($order == voting && $orderType == 'DESC' ? 'ASC' : 'DESC')">
+					<i class="icon-sort{if $order == 'voting'}-{($orderType == 'DESC' ? 'down' : 'up')}{/if}"></i> Průměrné hodnocení
+				</a>
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,10 +35,11 @@
 					<a n:href=":Server:Users:detail id=>$u->nick">{$u->nick}</a>
 					{$u->role|role}
 				</td>
-				<td>{$u->getFoundCount()}</td>
-				<td>{$u->getCreatedCount()}</td>
-				<td>{$u->getAverageVoting()|score}</td>
+				<td>{$u->found}</td>
+				<td>{$u->created}</td>
+				<td>{$u->voting|score}</td>
 			</tr>
 		{/foreach}
 	</tbody>
 </table>
+{include #paginator, paginator => $paginator}

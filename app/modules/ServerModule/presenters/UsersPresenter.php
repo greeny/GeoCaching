@@ -7,6 +7,7 @@ namespace GeoCaching\ServerModule;
 use GeoCaching\Controls\Form;
 use GeoCaching\Model\UserFacade;
 use GeoCaching\ServerModule\Forms\ConnectForm;
+use Nette\Utils\Paginator;
 
 class UsersPresenter extends BaseServerPresenter {
 
@@ -52,9 +53,32 @@ class UsersPresenter extends BaseServerPresenter {
 		$this->redirect(':Server:Users:detail', array('id' => $v->nick));
 	}
 
-	public function renderList()
+	public function renderList($id, $order = 'nick', $orderType = 'ASC')
 	{
-		$this->template->users = $this->tableFactory->users->findAll()->order('nick ASC');
+		if($orderType !== 'ASC' && $orderType !== 'DESC') {
+			$orderType = 'ASC';
+		}
+		$paginator = new Paginator();
+		$paginator->setItemsPerPage(20);
+		$paginator->setPage($id);
+		$paginator->setItemCount($this->tableFactory->users->findAll()->count());
+		$this->template->users = $this->tableFactory->getConnection()
+				->query("SELECT u.*,
+						COALESCE(AVG(cs.score), 0) AS voting,
+						(SELECT COUNT(*) FROM logs l WHERE l.user_id = u.id) AS found,
+						(SELECT COUNT(*) FROM caches c WHERE c.owner = u.id) AS created
+						FROM users u
+						LEFT JOIN cache_score cs ON u.id = cs.user_id
+						GROUP BY u.id
+						ORDER BY `$order` $orderType
+						LIMIT {$paginator->getOffset()}, {$paginator->getLength()}");
+		if(true) {
+		} else {
+			$this->template->users = $this->tableFactory->users->findAll()->order($order.' '.$orderType)->limit($paginator->getLength(), $paginator->getOffset());
+		}
+		$this->template->paginator = $paginator;
+		$this->template->order = $order;
+		$this->template->orderType = $orderType;
 	}
 
 	public function handlePromote($to)
