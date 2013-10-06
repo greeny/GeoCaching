@@ -62,7 +62,7 @@ class UsersPresenter extends BaseServerPresenter {
 		$paginator->setItemsPerPage(20);
 		$paginator->setPage($id);
 		$paginator->setItemCount($this->tableFactory->users->findAll()->count());
-		if($id !== $paginator->getPage()) {
+		if($id != $paginator->getPage()) {
 			$this->redirect('this', array($paginator->getPage()));
 		}
 		$this->template->users = $this->tableFactory->getConnection()
